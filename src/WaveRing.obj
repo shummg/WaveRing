@@ -1,0 +1,15 @@
+--track0:ãóó£,0,4000,500
+--track1:ä‘äu,1,4000,100
+--track2:ïù,0,4000,10
+--dialog:êF/col,local color=0xffffff;ê}å`,local figure="â~";
+
+local length = obj.track0
+local dist = obj.track1
+local width = obj.track2
+
+local amount = math.ceil(length/dist)
+
+for i=0,amount-1 do
+  obj.load("figure", figure, color, length-(i*dist), width)
+  obj.draw()
+end
