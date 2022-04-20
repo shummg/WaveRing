@@ -1,15 +1,27 @@
 --track0:ãóó£,0,4000,500
 --track1:ä‘äu,1,4000,100
 --track2:ïù,0,4000,10
---dialog:êF/col,local color=0xffffff;ê}å`,local figure="â~";
+--dialog:êF/col,wr_col=0xffffff;ê}å`,wr_fig="â~";è„å¿,wr_max=-1;â∫å¿,wr_min=-1;â¡éZó ,wr_sum=0;èÊéZó ,wr_mul=1;
 
 local length = obj.track0
 local dist = obj.track1
 local width = obj.track2
-
+local color, figure = wr_col, wr_fig
+local max, min = wr_max, wr_min
+local temp_buffer = (wr_tb==1)
+local sum, mul = wr_sum, wr_mul
 local amount = math.ceil(length/dist)
 
+obj.setoption("drawtarget","tempbuffer", length, length)
+
 for i=0,amount-1 do
-  obj.load("figure", figure, color, length-(i*dist), width)
-  obj.draw()
+  local size = length-(i*dist)
+  local w = width * math.pow(mul, i) + (sum*i)
+
+  if (max<0 or size<=max) and (min<0 or size>=min) then
+    obj.load("figure", figure, color, size, w)
+    obj.draw()
+  end
 end
+
+obj.load("tempbuffer")
